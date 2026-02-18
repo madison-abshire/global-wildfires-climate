@@ -1,0 +1,1 @@
+# global-wildfires-climate

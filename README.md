@@ -21,7 +21,7 @@ How do environmental hazards affect wildfire severity?
 
 How have causes for each region changed over time?
 
-How has the area burned changed over time? (scatterplot)
+How has the area burned changed over time? 
 
 # Users were tasked to do the following:
 

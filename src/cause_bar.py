@@ -3,6 +3,7 @@ import streamlit as st
 import plotly.express as px
 
 def cause_country_plot(df: pd.DataFrame, year_filter:str, selected_countries: list) -> None:
+    st.write(type(selected_countries))
     year_filter = int(year_filter)
 
     if not selected_countries:

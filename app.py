@@ -46,8 +46,8 @@ def main() -> None:
         selected_condition = weather_condition_select()
         scatter_weather_conditions_plot(df, y_axis_column=selected_condition, year_filter=scatter_year)
 
-        selected_country = country_select(df, year_filter=scatter_year, key="cause_country_filter")
-        cause_country_plot(df, year_filter=scatter_year, selected_country=selected_country)
+        selected_countries = country_select(df, year_filter=scatter_year, key="cause_country_filter")
+        cause_country_plot(df, year_filter=scatter_year, selected_countries=selected_countries)
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ import plotly.express as px
 
 def cause_country_plot(df: pd.DataFrame, year_filter:str, selected_country: str) -> None:
     year_filter = int(year_filter)
-    filtered_df = df[df["Year"] == year_filter & df["Country"] == selected_country]
+    filtered_df = df[(df["Year"] == year_filter) & (df["Country"] == selected_country)]
 
     if filtered_df.empty:
         st.warning("No data available.")

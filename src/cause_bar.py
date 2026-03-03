@@ -5,10 +5,12 @@ import plotly.express as px
 def cause_country_plot(df: pd.DataFrame, year_filter:str, selected_countries: list) -> None:
     year_filter = int(year_filter)
 
-    if not selected_countries:
-        filtered_df = df[df["Year"] == year_filter]
-    else:
-        filtered_df = df[(df["Year"] == year_filter) & (df["Country"].isin(selected_countries))]
+    filtered_df = df[df["Year"] == year_filter]
+
+    if selected_countries:
+        filtered_df = filtered_df[
+            filtered_df["Country"].isin(selected_countries)
+        ]
 
     if filtered_df.empty:
         st.warning("No data available.")
@@ -17,11 +19,13 @@ def cause_country_plot(df: pd.DataFrame, year_filter:str, selected_countries: li
     country_cause = (filtered_df.groupby(["Country", "Cause"])["Fires_Count"].sum().reset_index())
 
     fig = px.bar(country_cause, x="Cause", y="Fires_Count",
-                 color="Country",
+                 color="Cause",
                  barmode="group",
                  title=f"Wildfire Causes by Country ({year_filter})",
                  labels={"Fires_Count": "Total Fires",
+                         "Country": "Country",
                          "Cause": "Wildfire Cause"}
                  )
+    fig.update_layout(xaxis_tickangle=0)
 
     st.plotly_chart(fig, use_container_width=True)

@@ -21,15 +21,25 @@ The dataset our dashboard uses covers the entire history of wildfire occurrences
 | Longitude | Geographic longitude |
 
 # Context
-The dashboard responds to the following stakeholder questions:
+# Wildfire Risk Conditions
 
-How have wildfire occurrences changed in each country/region over time?(1881-2025)
+What climate conditions (temperature, humidity, wind) correlate with higher wildfire activity?
 
-How do environmental hazards affect wildfire severity?
+Are specific combinations of weather variables associated with larger burned areas?
 
-How have causes for each region changed over time?
+# Geospatial & Temporal Trends
 
-How has the area burned changed over time? 
+How have wildfire occurrences changed over time by country and region?
+
+Which countries have the highest historical burned area?
+
+Which regions within those countries contribute most to the burned area?
+
+# Regional Impact Insights
+
+Given a selected country, what are the top regions contributing to total burned area historically?
+
+How do climate conditions vary across regions and years?
 
 # Users were tasked to do the following:
 

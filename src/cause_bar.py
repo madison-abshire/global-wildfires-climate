@@ -3,10 +3,10 @@ import streamlit as st
 import plotly.express as px
 from src.cause_color_map_util import cause_color_map
 
-def cause_country_plot(df: pd.DataFrame, year_filter:str, selected_countries: list) -> None:
-    year_filter = int(year_filter)
+def cause_country_plot(df: pd.DataFrame, year_range, selected_countries: list) -> None:
+    start_year, end_year = year_range
 
-    filtered_df = df[df["Year"] == year_filter]
+    filtered_df = df[(df["Year"] >= start_year) & (df["Year"] <= end_year)]
 
     if selected_countries:
         filtered_df = filtered_df[
@@ -22,7 +22,7 @@ def cause_country_plot(df: pd.DataFrame, year_filter:str, selected_countries: li
     fig = px.bar(country_cause, x="Country", y="Fires_Count",
                  color="Cause",
                  barmode="group",
-                 title=f"Wildfire Causes by Country ({year_filter})",
+                 title=f"Wildfire Causes by Country ({start_year}-{end_year})",
                  labels={"Fires_Count": "Total Fires",
                          "Country": "Country",
                          "Cause": "Wildfire Cause"},

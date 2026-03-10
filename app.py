@@ -37,11 +37,14 @@ def main() -> None:
                 median_humidity = df['Humidity_Percent'].median().round(2)
                 st.metric('Median Humidity', median_humidity)
 
+    st.divider()
+    year_range = date_slider(df)
+    st.divider()
+
     t1, t2, t3 = st.tabs(["Explore World Map", "Explore by Region", "Explore by Cause"])
     with t1:
         st.subheader("Wildfire Hotspots on the World Map")
-        map_year = date_slider(df, key="map_year")
-        wildfire_worldmap_plot(df, map_year)
+        wildfire_worldmap_plot(df, year_range)
 
     with t2:
         st.subheader("Top Countries & Regional Breakdown (Burned Area)")
@@ -73,13 +76,11 @@ def main() -> None:
     with t3:
         st.subheader("Distribution of Cause by Country and Weather Conditions")
         with st.container():
-            country_cause_year = date_slider(df, key="country_cause_year")
-            selected_countries = country_select(df, year_filter=country_cause_year, key="cause_country_filter")
-            cause_country_plot(df, year_filter=country_cause_year, selected_countries=selected_countries)
+            selected_countries = country_select(df, year_range = year_range, key="cause_country_filter")
+            cause_country_plot(df, year_range = year_range, selected_countries=selected_countries)
         with st.container():
-            scatter_year = date_slider(df, key="scatter_year")
             selected_condition = weather_condition_select()
-            scatter_weather_conditions_plot(df, y_axis_column=selected_condition, year_filter=scatter_year)
+            scatter_weather_conditions_plot(df, y_axis_column=selected_condition, year_range=year_range)
 
 
 if __name__ == "__main__":

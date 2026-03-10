@@ -7,14 +7,12 @@ from src.cause_color_map_util import cause_color_map
 def scatter_weather_conditions_plot(df: pd.DataFrame, y_axis_column: str, year_range) -> None:
     start_year, end_year = year_range
 
-    filtered = df[(df["Year"] >= start_year) & (df["Year"] <= end_year)]
-
     name_map = {"Humidity_Percent": "Humidity Percent",
                 "Temperature_C": "Temperature (C)",
                 "Wind_Speed_kmh": "Wind Speed (km/h)"}
     palette = cause_color_map()
 
-    fig = px.scatter(filtered,
+    fig = px.scatter(df,
                      x="Cause",
                      y=y_axis_column,
                      labels={"Cause": "Cause",

@@ -5,9 +5,7 @@ import plotly.express as px
 def wildfire_worldmap_plot(df: pd.DataFrame, year_range) -> None:
     start_year, end_year = year_range
 
-    filtered = df[(df["Year"] >= start_year) & (df["Year"] <= end_year)]
-
-    fig = px.scatter_map(filtered,
+    fig = px.scatter_map(df,
                          lat='Latitude',
                          lon='Longitude',
                          color="Fires_Count",

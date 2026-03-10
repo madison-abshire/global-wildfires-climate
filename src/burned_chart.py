@@ -2,7 +2,9 @@ import pandas as pd
 import plotly.express as px
 
 
-def top_countries_burned_area(df: pd.DataFrame, top_n: int):
+def top_countries_burned_area(df: pd.DataFrame, top_n: int, year_range):
+    start_year, end_year = year_range
+
     df = df.copy()
     df["Burned_Area_Km"] = pd.to_numeric(df["Burned_Area_Km"], errors="coerce")
     df = df.dropna(subset=["Country", "Burned_Area_Km"])
@@ -21,7 +23,7 @@ def top_countries_burned_area(df: pd.DataFrame, top_n: int):
         y="Country",
         orientation="h",
         labels={"Total_Burned_Area_Km": "Burned Area (Km²)", "Country": "Country"},
-        title=f"Top {top_n} Countries by Total Burned Area",
+        title=f"Top {top_n} Countries by Total Burned Area ({start_year}-{end_year})",
     )
     fig.update_layout(yaxis={"categoryorder": "total ascending"})
     return fig, summary

@@ -3,21 +3,14 @@ import streamlit as st
 import plotly.express as px
 from src.cause_color_map_util import cause_color_map
 
-def cause_country_plot(df: pd.DataFrame, year_range, selected_countries: list) -> None:
+def cause_country_plot(df: pd.DataFrame, year_range) -> None:
     start_year, end_year = year_range
 
-    filtered_df = df[(df["Year"] >= start_year) & (df["Year"] <= end_year)]
-
-    if selected_countries:
-        filtered_df = filtered_df[
-            filtered_df["Country"].isin(selected_countries)
-        ]
-
-    if filtered_df.empty:
+    if df.empty:
         st.warning("No data available.")
         return
 
-    country_cause = (filtered_df.groupby(["Country", "Cause"])["Fires_Count"].sum().reset_index())
+    country_cause = (df.groupby(["Country", "Cause"])["Fires_Count"].sum().reset_index())
 
     fig = px.bar(country_cause, x="Country", y="Fires_Count",
                  color="Cause",

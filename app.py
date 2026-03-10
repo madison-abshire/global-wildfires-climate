@@ -1,7 +1,7 @@
 import streamlit as st
 from src.data import load_data
 from src.scatter_plot import scatter_weather_conditions_plot
-from src.filters import date_slider, weather_condition_select, country_select
+from src.filters import sidebar_filters, weather_condition_select
 from src.map_plot import wildfire_worldmap_plot
 from src.burned_chart import top_countries_burned_area, burned_area_by_region
 from src.filters_burned import burned_area_controls
@@ -18,41 +18,48 @@ def main() -> None:
     st.caption("Reference: uw-msim-imt561-2026/global-wildfires-climate")
 
     df = load_data("data/Forest_Fires_Dataset_Final.csv")
-    # TODO: implement data slider for these as well
+    # Apply filters
+    year_range, selected_countries, selected_causes = sidebar_filters(df)
+
+    start_year, end_year = year_range
+    df_filtered = df[
+        (df["Year"] >= start_year) &
+        (df["Year"] <= end_year) &
+        (df["Country"].isin(selected_countries)) &
+        (df["Cause"].isin(selected_causes))
+        ]
+
+
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.metric("Total Burned Area (Km)", df["Burned_Area_Km"].sum().round(0).astype(int))
+            st.metric("Total Burned Area (Km)", df_filtered["Burned_Area_Km"].sum().round(0).astype(int))
         with col2:
-            st.metric('Top Cause', df['Cause'].mode()[0])
+            st.metric('Top Cause', df_filtered['Cause'].mode()[0] if not df_filtered.empty else "N/A")
         with col3:
             subcol1, subcol2, subcol3 = st.columns(3)
             with subcol1:
-                median_temp = df['Temperature_C'].median().round(2)
+                median_temp = df_filtered['Temperature_C'].median().round(2)
                 st.metric('Median Temperature (C)', median_temp)
             with subcol2:
-                median_wind_speed = df['Wind_Speed_kmh'].median().round(2)
+                median_wind_speed = df_filtered['Wind_Speed_kmh'].median().round(2)
                 st.metric('Wind Speed (km/h)', median_wind_speed)
             with subcol3:
-                median_humidity = df['Humidity_Percent'].median().round(2)
+                median_humidity = df_filtered['Humidity_Percent'].median().round(2)
                 st.metric('Median Humidity', median_humidity)
-
-    st.divider()
-    year_range = date_slider(df)
-    st.divider()
 
     t1, t2, t3 = st.tabs(["Explore World Map", "Explore by Region", "Explore by Cause"])
     with t1:
         st.subheader("Wildfire Hotspots on the World Map")
-        wildfire_worldmap_plot(df, year_range)
+        wildfire_worldmap_plot(df_filtered, year_range)
 
     with t2:
         st.subheader("Top Countries & Regional Breakdown (Burned Area)")
 
         # Top N countries
-        max_count = len(df['Country'].unique())
+        max_count = len(df_filtered['Country'].unique())
         top_n = st.slider("Top N Countries", 5, max_count, value=max_count, key="burned_top_n")
-        fig_c, top_countries_df = top_countries_burned_area(df, top_n)
+        fig_c, top_countries_df = top_countries_burned_area(df_filtered, top_n, year_range)
         st.plotly_chart(fig_c, width='stretch')
 
         # Pick a country from the Top N list (via your filters module)
@@ -65,7 +72,7 @@ def main() -> None:
             key="burned_top_k_regions"
         )
 
-        fig_r, region_df = burned_area_by_region(df, selected_country, top_k=top_k)
+        fig_r, region_df = burned_area_by_region(df_filtered, selected_country, top_k=top_k)
         st.plotly_chart(fig_r, width='stretch')
 
         with st.expander("Show tables"):
@@ -76,11 +83,10 @@ def main() -> None:
     with t3:
         st.subheader("Distribution of Cause by Country and Weather Conditions")
         with st.container():
-            selected_countries = country_select(df, year_range = year_range, key="cause_country_filter")
-            cause_country_plot(df, year_range = year_range, selected_countries=selected_countries)
+            cause_country_plot(df_filtered, year_range)
         with st.container():
             selected_condition = weather_condition_select()
-            scatter_weather_conditions_plot(df, y_axis_column=selected_condition, year_range=year_range)
+            scatter_weather_conditions_plot(df_filtered, y_axis_column=selected_condition, year_range=year_range)
 
 
 if __name__ == "__main__":

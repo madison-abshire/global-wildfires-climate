@@ -1,32 +1,42 @@
 import pandas as pd
 import streamlit as st
 
-def date_slider(df: pd.DataFrame) -> tuple:
-    # Key variable differentiates the multiple year slider widgets
+def sidebar_filters(df: pd.DataFrame):
+
+    st.sidebar.header("Global Filters")
+
+    # Year range
     min_year = int(df["Year"].min())
     max_year = int(df["Year"].max())
 
-    year_range = st.slider("Select year range",
-                           min_value=min_year,
-                           max_value=max_year,
-                           value=(min_year, max_year))
-    return year_range
+    year_range = st.sidebar.slider(
+        "Year Range",
+        min_value=min_year,
+        max_value=max_year,
+        value=(min_year, max_year)
+    )
+
+    # Country multiselect
+    countries = sorted(df["Country"].unique())
+
+    selected_countries = st.sidebar.multiselect(
+        "Country",
+        options=countries,
+        default=countries
+    )
+
+    # Cause multiselect
+    causes = sorted(df["Cause"].unique())
+
+    selected_causes = st.sidebar.multiselect(
+        "Cause",
+        options=causes,
+        default=causes
+    )
+
+    return year_range, selected_countries, selected_causes
+
 
 def weather_condition_select() -> str:
     cols = ["Temperature_C","Humidity_Percent","Wind_Speed_kmh"]
     return st.selectbox("Select weather condition", cols)
-
-
-def country_select(df: pd.DataFrame, year_range: tuple, key: str) -> list:
-    start_year, end_year = year_range
-
-    filtered_df = df[
-        (df["Year"] >= start_year) &
-        (df["Year"] <= end_year)
-        ]
-
-    countries = sorted(filtered_df["Country"].unique())
-
-    selected_countries = st.multiselect("Select country(s)", options=countries, default=countries, key=key)
-
-    return selected_countries

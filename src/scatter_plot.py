@@ -19,7 +19,7 @@ def scatter_weather_conditions_plot(df: pd.DataFrame, y_axis_column: str, year_r
                      y=y_axis_column,
                      labels={"Cause": "Cause",
                              y_axis_column: name_map[y_axis_column]},
-                     title="Distribution of Cause by Weather Condition",
+                     title=f"Distribution of Cause by Weather Condition ({start_year}-{end_year})",
                      color="Cause",
                      size="Burned_Area_Km",
                      hover_data=["Country","Region","Year"],

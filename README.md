@@ -1,4 +1,5 @@
 Streamlit Link: https://global-wildfires-climate-ivphsjatwe76crmm35lxks.streamlit.app/
+
 Dataset link: https://www.kaggle.com/datasets/berkekarakanl/global-wildfires-and-climate-dataset-18812025
 
 # Audience/Stakeholders: 

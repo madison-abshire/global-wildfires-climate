@@ -1,4 +1,5 @@
 Streamlit Link: https://global-wildfires-climate-ivphsjatwe76crmm35lxks.streamlit.app/
+Dataset link: https://www.kaggle.com/datasets/berkekarakanl/global-wildfires-and-climate-dataset-18812025
 
 # Audience/Stakeholders: 
 The primary stakeholders for this dashboard are environmental researchers and climate analysts who study the relationship between wildfire activity and environmental conditions. These stakeholders work in research institutions, universities, environmental organizations, and government agencies focused on climate science and ecological monitoring. The dataset contains information that allows researchers to analyze wildfire trends over time, compare impacts across countries and regions, and explore how environmental conditions may influence wildfire occurrences. By using this dashboard, stakeholders can identify patterns in wildfire activity and generate insights that support climate research and environmental policy discussions.

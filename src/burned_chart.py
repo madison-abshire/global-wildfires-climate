@@ -3,10 +3,6 @@ import plotly.express as px
 import streamlit as st
 
 def top_countries_burned_area(df: pd.DataFrame, top_n: int, year_range):
-    if df.empty:
-        st.warning("No data available for Burned Area Analysis")
-        return
-
     start_year, end_year = year_range
 
     df = df.copy()
@@ -34,10 +30,6 @@ def top_countries_burned_area(df: pd.DataFrame, top_n: int, year_range):
 
 
 def burned_area_by_region(df: pd.DataFrame, selected_country: str, top_k: int = 5):
-    if df.empty:
-        st.warning("No data available for Burned Area Analysis")
-        return
-
     df = df.copy()
     df["Burned_Area_Km"] = pd.to_numeric(df["Burned_Area_Km"], errors="coerce")
     df = df.dropna(subset=["Country", "Region", "Burned_Area_Km"])

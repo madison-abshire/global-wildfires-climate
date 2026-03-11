@@ -33,7 +33,6 @@ def main() -> None:
 
     with st.container():
         st.markdown("#### 🔥Key Metrics")
-
         col1, col2, col3 = st.columns(3)
         with col1:
             st.metric("Total Burned Area (Km)", df_filtered["Burned_Area_Km"].sum().round(0).astype(int))
@@ -42,19 +41,23 @@ def main() -> None:
         with col3:
             subcol1, subcol2, subcol3 = st.columns(3)
             with subcol1:
-                median_temp = df_filtered['Temperature_C'].median().round(2)
-                st.metric('Median Temperature (C)', median_temp)
+                mean_temp = df_filtered['Temperature_C'].mean().round(2) if not df_filtered.empty else 0
+                st.metric('Temp (C)', mean_temp)
             with subcol2:
-                median_wind_speed = df_filtered['Wind_Speed_kmh'].median().round(2)
-                st.metric('Wind Speed (km/h)', median_wind_speed)
+                mean_wind_speed = df_filtered['Wind_Speed_kmh'].mean().round(2) if not df_filtered.empty else 0
+                st.metric('Wind Speed (km/h)', mean_wind_speed)
             with subcol3:
-                median_humidity = df_filtered['Humidity_Percent'].median().round(2)
-                st.metric('Median Humidity', median_humidity)
+                mean_humidity = df_filtered['Humidity_Percent'].mean().round(2) if not df_filtered.empty else 0
+                st.metric('Humidity', mean_humidity)
 
     st.divider()
 
-    t1, t2, t3, t4 = st.tabs(["Explore Trend", "Explore World Map", "Explore by Region", "Explore by Cause"])
+    t1, t2, t3, t4 = st.tabs(["Explore World Map", "Explore Trend", "Explore by Region", "Explore by Cause"])
     with t1:
+        st.subheader("Wildfire Hotspots on the World Map")
+        wildfire_worldmap_plot(df_filtered, year_range)
+
+    with t2:
         st.subheader("Wildfire Trend Analysis")
         total_fires_trend(df_filtered, year_range)
 
@@ -66,16 +69,14 @@ def main() -> None:
 
         comparative_trend(df_filtered, comparison_type=comparison_type, top_n=5, year_range=year_range)
 
-    with t2:
-        st.subheader("Wildfire Hotspots on the World Map")
-        wildfire_worldmap_plot(df_filtered, year_range)
-
     with t3:
         st.subheader("Top Countries & Regional Breakdown (Burned Area)")
+        if df_filtered.empty:
+            st.warning("No Data Available")
 
         # Top N countries
         max_count = len(df_filtered['Country'].unique())
-        top_n = st.slider("Top N Countries", 5, max_count, value=max_count, key="burned_top_n")
+        top_n = st.slider("Top N Countries", 0, max_count, value=max_count, key="burned_top_n") if max_count > 0 else 0
         fig_c, top_countries_df = top_countries_burned_area(df_filtered, top_n, year_range)
         st.plotly_chart(fig_c, width='stretch')
 

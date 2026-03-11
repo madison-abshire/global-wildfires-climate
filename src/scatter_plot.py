@@ -5,6 +5,10 @@ from src.cause_color_map_util import cause_color_map
 
 #TODO: Rename axes,
 def scatter_weather_conditions_plot(df: pd.DataFrame, y_axis_column: str, year_range) -> None:
+    if df.empty:
+        st.warning("No data available.")
+        return
+
     start_year, end_year = year_range
 
     name_map = {"Humidity_Percent": "Humidity Percent",

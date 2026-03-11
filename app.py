@@ -43,13 +43,13 @@ def main() -> None:
             subcol1, subcol2, subcol3 = st.columns(3)
             with subcol1:
                 median_temp = df_filtered['Temperature_C'].median().round(2)
-                st.metric('Median Temperature (C)', median_temp if not df_filtered.empty else 0)
+                st.metric('Median Temperature (C)', median_temp)
             with subcol2:
                 median_wind_speed = df_filtered['Wind_Speed_kmh'].median().round(2)
-                st.metric('Wind Speed (km/h)', median_wind_speed if not df_filtered.empty else 0)
+                st.metric('Wind Speed (km/h)', median_wind_speed)
             with subcol3:
                 median_humidity = df_filtered['Humidity_Percent'].median().round(2)
-                st.metric('Median Humidity', median_humidity if not df_filtered.empty else 0)
+                st.metric('Median Humidity', median_humidity)
 
     st.divider()
 

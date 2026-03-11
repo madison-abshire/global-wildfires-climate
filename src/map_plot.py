@@ -5,10 +5,6 @@ import plotly.express as px
 def wildfire_worldmap_plot(df: pd.DataFrame, year_range) -> None:
     start_year, end_year = year_range
 
-    if df.empty:
-        st.warning("No data available for World Map Hotspots.")
-        return
-
     fig = px.scatter_map(df,
                          lat='Latitude',
                          lon='Longitude',

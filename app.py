@@ -31,7 +31,7 @@ def main() -> None:
 
 
     with st.container():
-        st.markdown("## Key Metrics")
+        st.markdown("#### 🔥Key Metrics")
 
         col1, col2, col3 = st.columns(3)
         with col1:

@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-def sidebar_filters(df: pd.DataFrame):
+def sidebar_filters(df: pd.DataFrame) -> tuple:
 
     st.sidebar.header("Global Filters")
 

@@ -64,7 +64,7 @@ def main() -> None:
             options=["Top 5 Countries", "Causes"]
         )
 
-        comparative_trend(df_filtered, comparison_type=comparison_type, top_n=5)
+        comparative_trend(df_filtered, comparison_type=comparison_type, top_n=5, year_range=year_range)
 
     with t2:
         st.subheader("Wildfire Hotspots on the World Map")

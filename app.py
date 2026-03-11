@@ -36,20 +36,20 @@ def main() -> None:
 
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.metric("Total Burned Area (Km)", df_filtered["Burned_Area_Km"].sum().round(0).astype(int) if not df_filtered.empty else 0)
+            st.metric("Total Burned Area (Km)", df_filtered["Burned_Area_Km"].sum().round(0).astype(int))
         with col2:
             st.metric('Top Cause', df_filtered['Cause'].mode()[0] if not df_filtered.empty else "N/A")
         with col3:
             subcol1, subcol2, subcol3 = st.columns(3)
             with subcol1:
                 median_temp = df_filtered['Temperature_C'].median().round(2)
-                st.metric('Median Temperature (C)', median_temp if not df_filtered.empty else 0)
+                st.metric('Median Temperature (C)', median_temp)
             with subcol2:
                 median_wind_speed = df_filtered['Wind_Speed_kmh'].median().round(2)
-                st.metric('Wind Speed (km/h)', median_wind_speed if not df_filtered.empty else 0)
+                st.metric('Wind Speed (km/h)', median_wind_speed)
             with subcol3:
                 median_humidity = df_filtered['Humidity_Percent'].median().round(2)
-                st.metric('Median Humidity', median_humidity if not df_filtered.empty else 0)
+                st.metric('Median Humidity', median_humidity)
 
     st.divider()
 

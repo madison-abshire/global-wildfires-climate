@@ -31,6 +31,8 @@ def main() -> None:
 
 
     with st.container():
+        st.markdown("### Key Metrics")
+
         col1, col2, col3 = st.columns(3)
         with col1:
             st.metric("Total Burned Area (Km)", df_filtered["Burned_Area_Km"].sum().round(0).astype(int))

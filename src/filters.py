@@ -3,7 +3,7 @@ import streamlit as st
 
 def sidebar_filters(df: pd.DataFrame) -> tuple:
 
-    st.sidebar.header("Global Filters")
+    st.sidebar.header("Filters")
 
     # Year range
     min_year = int(df["Year"].min())

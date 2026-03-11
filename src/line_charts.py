@@ -3,7 +3,7 @@ import plotly.express as px
 import streamlit as st
 from src.cause_color_map_util import cause_color_map  # optional if you want consistent colors
 
-def total_fires_trend(df: pd.DataFrame, year_range: tuple):
+def total_fires_trend(df: pd.DataFrame, year_range: tuple) -> None:
     start_year, end_year = year_range
 
     if df.empty:
@@ -23,7 +23,7 @@ def total_fires_trend(df: pd.DataFrame, year_range: tuple):
     st.plotly_chart(fig, use_container_width=True)
 
 
-def comparative_trend(df: pd.DataFrame, comparison_type: str, year_range, top_n: int = 5):
+def comparative_trend(df: pd.DataFrame, comparison_type: str, year_range, top_n: int = 5) -> None:
     start_year, end_year = year_range
 
     if df.empty:

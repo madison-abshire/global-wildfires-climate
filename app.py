@@ -2,6 +2,7 @@ import streamlit as st
 from src.data import load_data
 from src.scatter_plot import scatter_weather_conditions_plot
 from src.filters import sidebar_filters, weather_condition_select
+from src.line_charts import total_fires_trend, comparative_trend
 from src.map_plot import wildfire_worldmap_plot
 from src.burned_chart import top_countries_burned_area, burned_area_by_region
 from src.filters_burned import burned_area_controls
@@ -52,12 +53,24 @@ def main() -> None:
 
     st.divider()
 
-    t1, t2, t3 = st.tabs(["Explore World Map", "Explore by Region", "Explore by Cause"])
+    t1, t2, t3, t4 = st.tabs(["Explore Trend", "Explore World Map", "Explore by Region", "Explore by Cause"])
     with t1:
+        st.subheader("Wildfire Trend Analysis")
+        total_fires_trend(df_filtered)
+
+        st.markdown("---")
+        comparison_type = st.radio(
+            "Compare Trend By:",
+            options=["Top 5 Countries", "Causes"]
+        )
+
+        comparative_trend(df_filtered, comparison_type=comparison_type, top_n=5)
+
+    with t2:
         st.subheader("Wildfire Hotspots on the World Map")
         wildfire_worldmap_plot(df_filtered, year_range)
 
-    with t2:
+    with t3:
         st.subheader("Top Countries & Regional Breakdown (Burned Area)")
 
         # Top N countries
@@ -84,7 +97,7 @@ def main() -> None:
             st.dataframe(top_countries_df, width='stretch')
             st.write(f"Top {top_k} Regions in {selected_country}")
             st.dataframe(region_df, width='stretch')
-    with t3:
+    with t4:
         st.subheader("Distribution of Cause by Country and Weather Conditions")
         with st.container():
             cause_country_plot(df_filtered, year_range)

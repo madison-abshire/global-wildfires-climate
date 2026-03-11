@@ -4,11 +4,11 @@ import plotly.express as px
 from src.cause_color_map_util import cause_color_map
 
 def cause_country_plot(df: pd.DataFrame, year_range) -> None:
-    start_year, end_year = year_range
-
     if df.empty:
         st.warning("No data available for cause distribution across countries.")
         return
+
+    start_year, end_year = year_range
 
     country_cause = (df.groupby(["Country", "Cause"])["Fires_Count"].sum().reset_index())
 

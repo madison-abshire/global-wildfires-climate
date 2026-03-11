@@ -14,7 +14,7 @@ def main() -> None:
         layout="wide",
     )
 
-    st.image("src/wildfire.jpeg", width="stretch")
+    st.image("src/wildfire.jpeg", use_container_width=True)
     st.title("Global Wildfire Occurrences (1881-2025)")
     st.subheader("Historical view of wildfire occurrences in fire-prone regions")
     st.caption("Reference: uw-msim-imt561-2026/global-wildfires-climate")

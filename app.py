@@ -31,18 +31,7 @@ def main() -> None:
 
 
     with st.container():
-        st.markdown("### Key Metrics")
-        st.markdown(
-            """
-            <div style="
-                border:2px solid #e6e6e6;
-                border-radius:10px;
-                padding:20px;
-                background-color:#fafafa;
-            ">
-            """,
-            unsafe_allow_html=True
-        )
+        st.markdown("## Key Metrics")
 
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -61,7 +50,7 @@ def main() -> None:
                 median_humidity = df_filtered['Humidity_Percent'].median().round(2)
                 st.metric('Median Humidity', median_humidity)
 
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.divider()
 
     t1, t2, t3 = st.tabs(["Explore World Map", "Explore by Region", "Explore by Cause"])
     with t1:

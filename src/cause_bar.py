@@ -7,7 +7,7 @@ def cause_country_plot(df: pd.DataFrame, year_range) -> None:
     start_year, end_year = year_range
 
     if df.empty:
-        st.warning("No data available for cause distribution across countries.")
+        st.warning("No data available.")
         return
 
     country_cause = (df.groupby(["Country", "Cause"])["Fires_Count"].sum().reset_index())

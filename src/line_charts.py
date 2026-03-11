@@ -4,11 +4,11 @@ import streamlit as st
 from src.cause_color_map_util import cause_color_map  # optional if you want consistent colors
 
 def total_fires_trend(df: pd.DataFrame, year_range: tuple) -> None:
+    start_year, end_year = year_range
+
     if df.empty:
         st.warning("No data available for Total Fires Trend.")
         return
-
-    start_year, end_year = year_range
 
     yearly_fires = df.groupby("Year")["Fires_Count"].sum().reset_index()
 
@@ -24,11 +24,11 @@ def total_fires_trend(df: pd.DataFrame, year_range: tuple) -> None:
 
 
 def comparative_trend(df: pd.DataFrame, comparison_type: str, year_range, top_n: int = 5) -> None:
+    start_year, end_year = year_range
+
     if df.empty:
         st.warning(f"No data available for {comparison_type} trend.")
         return
-
-    start_year, end_year = year_range
 
     if comparison_type == "Top 5 Countries":
         top_countries = (

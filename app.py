@@ -56,7 +56,7 @@ def main() -> None:
     t1, t2, t3, t4 = st.tabs(["Explore Trend", "Explore World Map", "Explore by Region", "Explore by Cause"])
     with t1:
         st.subheader("Wildfire Trend Analysis")
-        total_fires_trend(df_filtered)
+        total_fires_trend(df_filtered, year_range)
 
         st.markdown("---")
         comparison_type = st.radio(

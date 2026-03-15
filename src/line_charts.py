@@ -56,7 +56,7 @@ def comparative_trend(df: pd.DataFrame, comparison_type: str, year_range, top_n:
         .reset_index()
     )
 
-    fig = px.line(
+    fig = px.area(
         trend_df,
         x="Year",
         y="Fires_Count",

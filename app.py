@@ -40,7 +40,7 @@ def main() -> None:
                       format="localized",
                       label_visibility="visible")
         with col2:
-            st.metric('Top Cause', df_filtered['Cause'].mode()[0] if not df_filtered.empty else "N/A")
+            st.metric('Top Cause', df_filtered['Cause'].mode()[0] if not df_filtered.empty else "N/A", format="localized")
         with col3:
             subcol1, subcol2, subcol3 = st.columns(3)
             with subcol1:
@@ -51,7 +51,7 @@ def main() -> None:
                 st.metric('Wind Speed (km/h)', mean_wind_speed)
             with subcol3:
                 mean_humidity = df_filtered['Humidity_Percent'].mean().round(2) if not df_filtered.empty else 0
-                st.metric('Humidity', mean_humidity)
+                st.metric('Humidity', mean_humidity, format="percent")
 
     st.divider()
 

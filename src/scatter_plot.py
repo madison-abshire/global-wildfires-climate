@@ -3,7 +3,6 @@ import plotly.express as px
 import streamlit as st
 from src.cause_color_map_util import cause_color_map
 
-#TODO: Rename axes,
 def scatter_weather_conditions_plot(df: pd.DataFrame, y_axis_column: str, year_range) -> None:
     if df.empty:
         st.warning("No Data Available")
@@ -15,18 +14,15 @@ def scatter_weather_conditions_plot(df: pd.DataFrame, y_axis_column: str, year_r
                 "Wind_Speed_kmh": "Wind Speed (km/h)"}
     palette = cause_color_map()
 
-    fig = px.scatter(df,
+    fig = px.strip(df,
                      x="Cause",
                      y=y_axis_column,
                      labels={"Cause": "Cause",
                              y_axis_column: name_map[y_axis_column]},
                      title=f"Distribution of Cause by Weather Condition ({start_year}-{end_year})",
                      color="Cause",
-                     size="Burned_Area_Km",
                      hover_data=["Country","Region","Year"],
                      color_discrete_map=palette)
-
-
     fig.update_xaxes(categoryorder='category ascending')
 
 

@@ -61,7 +61,6 @@ def comparative_trend(df: pd.DataFrame, comparison_type: str, year_range, top_n:
         x="Year",
         y="Fires_Count",
         color=color_column,
-        markers=True,
         title=title,
         labels={"Fires_Count": "Total Fires", "Year": "Year"},
         color_discrete_map=cause_color_map() if color_column=="Cause" else None

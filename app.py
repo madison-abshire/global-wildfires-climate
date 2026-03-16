@@ -107,7 +107,7 @@ def main() -> None:
             cause_country_plot(df_filtered, year_range)
         with st.container():
             selected_condition = weather_condition_select()
-            scatter_weather_conditions_plot(df_filtered, y_axis_column=selected_condition, year_range=year_range)
+            scatter_weather_conditions_plot(df_filtered, weather_metric=selected_condition, year_range=year_range)
 
 
 if __name__ == "__main__":

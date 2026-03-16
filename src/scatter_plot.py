@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import plotly.express as px
 import streamlit as st
 from src.cause_color_map_util import cause_color_map

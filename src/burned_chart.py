@@ -22,10 +22,15 @@ def top_countries_burned_area(df: pd.DataFrame, top_n: int, year_range):
         x="Total_Burned_Area_Km",
         y="Country",
         orientation="h",
-        labels={"Total_Burned_Area_Km": "Burned Area (Km²)", "Country": "Country"},
         title=f"Top {top_n} Countries by Total Burned Area ({start_year}-{end_year})",
     )
     fig.update_layout(yaxis={"categoryorder": "total ascending"})
+    fig.update_traces(
+        hovertemplate="<br>".join([
+            "Burned Area (Km²): %{x:,d}",
+            "Country: %{y}",
+        ])
+    )
     return fig, summary
 
 
@@ -49,8 +54,13 @@ def burned_area_by_region(df: pd.DataFrame, selected_country: str, top_k: int = 
         x="Total_Burned_Area_Km",
         y="Region",
         orientation="h",
-        labels={"Total_Burned_Area_Km": "Burned Area (Km²)", "Region": "Region"},
         title=f"Top {top_k} Regions by Burned Area in {selected_country}",
     )
     fig.update_layout(yaxis={"categoryorder": "total ascending"})
+    fig.update_traces(
+        hovertemplate="<br>".join([
+            "Burned Area (Km²): %{x:,d}",
+            "Region: %{y}",
+        ])
+    )
     return fig, summary
